@@ -1,9 +1,9 @@
 {
-    "name": "laravel/laravel",
+    "name": "k2levin/interview-case-study",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Supplycart Interview Case Study",
     "keywords": [
-        "framework",
+        "supplycart",
         "laravel"
     ],
     "license": "MIT",

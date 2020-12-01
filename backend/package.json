@@ -1,4 +1,11 @@
 {
+    "name": "supplycart",
+    "version": "1.0.0",
+    "description": "Supplycart Interview Case Study",
+    "apidoc": {
+        "title": "Supplycart Api Documentation",
+        "url": "http://127.0.0.1"
+    },
     "private": true,
     "scripts": {
         "dev": "npm run development",
