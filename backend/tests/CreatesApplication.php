@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Illuminate\Contracts\Console\Kernel;
+use Artisan;
 
 trait CreatesApplication
 {
@@ -18,5 +19,10 @@ trait CreatesApplication
         $app->make(Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    protected function migrateFresh()
+    {
+        Artisan::call('migrate:fresh');
     }
 }
