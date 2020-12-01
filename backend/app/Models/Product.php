@@ -26,4 +26,34 @@ class Product extends Model
         'status',
         'img',
     ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
+    public function brand()
+    {
+        return $this->belongsTo('App\Models\Brand');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
+    }
+
+    public function carts()
+    {
+        return $this->hasMany('App\Models\Cart');
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany('App\Models\Order', 'order_product');
+    }
 }

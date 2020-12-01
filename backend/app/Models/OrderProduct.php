@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class OrderProduct extends Model
+class OrderProduct extends Pivot
 {
     use HasFactory;
 
@@ -18,5 +18,15 @@ class OrderProduct extends Model
         'order_id',
         'product_id',
         'price',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
     ];
 }

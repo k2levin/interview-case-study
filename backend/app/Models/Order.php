@@ -22,4 +22,24 @@ class Order extends Model
         'total_amount',
         'status',
     ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Models\Product', 'order_product');
+    }
 }

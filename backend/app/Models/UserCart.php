@@ -19,4 +19,24 @@ class UserCart extends Model
         'product_id',
         'price',
     ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+    }
 }

@@ -40,7 +40,7 @@ class CreateNewTables extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
 
-        Schema::create('user_cart', function (Blueprint $table) {
+        Schema::create('user_carts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
@@ -61,7 +61,7 @@ class CreateNewTables extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
-        Schema::create('order_products', function (Blueprint $table) {
+        Schema::create('order_product', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
@@ -80,9 +80,9 @@ class CreateNewTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_products');
+        Schema::dropIfExists('order_product');
         Schema::dropIfExists('user_orders');
-        Schema::dropIfExists('user_cart');
+        Schema::dropIfExists('user_carts');
         Schema::dropIfExists('products');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('brands');
