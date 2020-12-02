@@ -31,18 +31,4 @@ class UserController extends Controller
 
         return response()->json($datas, 200);
     }
-
-    // not using
-    public function refresh()
-    {
-        $token = auth()->refresh();
-
-        $datas = [
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60,
-        ];
-
-        return response()->json($datas, 200);
-    }
 }

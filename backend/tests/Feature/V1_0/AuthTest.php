@@ -9,10 +9,9 @@ class AuthTest extends TestCase
     private $name = 'John Doe';
     private $email = 'john.doe@email.com';
     private $password = 'Secret';
-    private static $access_token = '';
 
     // route = api.v1.0.guest.register
-    public function testGuestRegister()
+    public function testRegister()
     {
         $this->migrateFresh();
 
@@ -31,14 +30,22 @@ class AuthTest extends TestCase
         ]);
     }
 
-    // route = api.v1.0.guest.login
-    public function testGuestLogin()
+    public function testAuth()
     {
+        $access_token = 'eyJ0eXAiOiJKV1QiLC';
+
+        // Cannot see profile before login
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$access_token,
+        ])->json('GET', 'api/v1.0/user/profile');
+        $response->assertStatus(401);
+        $response->assertJson(['message' => 'Unauthorized']);
+
+        // Login
         $params = [
             'email' => $this->email,
             'password' => $this->password,
         ];
-
         $response = $this->json('POST', 'api/v1.0/login', $params);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -46,33 +53,30 @@ class AuthTest extends TestCase
             'token_type',
             'expires_in',
         ]);
+        $access_token = $response->getData()->access_token;
 
-        self::$access_token = $response->getData()->access_token;
-    }
-
-    // route = api.v1.0.user.profile.get
-    public function testUserProfile()
-    {
+        // Can see profile after login
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.self::$access_token,
+            'Authorization' => 'Bearer '.$access_token,
         ])->json('GET', 'api/v1.0/user/profile');
         $response->assertStatus(200);
         $response->assertJson([
             'name' => $this->name,
             'email' => $this->email,
         ]);
-    }
 
-    // route = api.v1.0.user.logout
-    public function testUserLogout()
-    {
+        // Logout
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.self::$access_token,
+            'Authorization' => 'Bearer '.$access_token,
         ])->json('POST', 'api/v1.0/logout');
         $response->assertStatus(200);
         $response->assertJson(['message' => 'Success']);
-    }
 
-    // route = api.v1.0.user.verify
-    // api/v1.0/user/verify
+        // Cannot see profile after logout
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer '.$access_token,
+        ])->json('GET', 'api/v1.0/user/profile');
+        $response->assertStatus(401);
+        $response->assertJson(['message' => 'Unauthorized']);
+    }
 }
