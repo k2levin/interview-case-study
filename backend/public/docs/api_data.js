@@ -34,22 +34,87 @@ define({ "api": [
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "email",
-            "description": "<p>Email.</p>"
+            "field": "access_token",
+            "description": "<p>User access token.</p>"
           },
           {
             "group": "Success 200",
             "type": "String",
             "optional": false,
-            "field": "access_token",
-            "description": "<p>User access token.</p>"
+            "field": "token_type",
+            "description": "<p>Token type.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "expires_in",
+            "description": "<p>JWT time to live (seconds).</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"name\": \"John Doe\",\n  \"access_token\": \"eyJ0eXAiOiJKW1QiLCJhbG\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"access_token\": \"eyJ0eXAiOiJKW1QiLCJhbG\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": \"31536000\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/ApiDoc/Auth.php",
+    "groupTitle": "Guest"
+  },
+  {
+    "type": "post",
+    "url": "/api/v1.0/register",
+    "title": "Post Register",
+    "version": "1.0.0",
+    "name": "Post_Register",
+    "description": "<p>Register</p>",
+    "group": "Guest",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Password.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"Success\"\n}",
           "type": "json"
         }
       ]
@@ -87,5 +152,110 @@ define({ "api": [
     },
     "filename": "app/Http/Controllers/Api/ApiDoc/Api.php",
     "groupTitle": "Home"
+  },
+  {
+    "type": "get",
+    "url": "/api/v1.0/user/profile",
+    "title": "Get User Profile",
+    "version": "1.0.0",
+    "name": "Get_User_Profile",
+    "description": "<p>User profile</p>",
+    "group": "User",
+    "permission": [
+      {
+        "name": "user"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>eg: Bearer eyJ0eXAiOiJKV1.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@email.com\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/ApiDoc/Auth.php",
+    "groupTitle": "User"
+  },
+  {
+    "type": "post",
+    "url": "/api/v1.0/logout",
+    "title": "Post Logout",
+    "version": "1.0.0",
+    "name": "Post_Logout",
+    "description": "<p>Logout</p>",
+    "group": "User",
+    "permission": [
+      {
+        "name": "user"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>eg: Bearer eyJ0eXAiOiJKV1.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "message",
+            "description": "<p>Message.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"message\": \"Success\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "app/Http/Controllers/Api/ApiDoc/Auth.php",
+    "groupTitle": "User"
   }
 ] });
